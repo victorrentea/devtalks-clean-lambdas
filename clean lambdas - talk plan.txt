@@ -1,0 +1,63 @@
+- intro
+ * Random thoughts on using java 8 lamdas in a clean way
+ * Highly opinionated view
+ * Drawn from hundreds of code reviews
+ * Assumes you know the basics of Lambdas and Streams in Java8
+	- if you dont, check out the screencast from my workshop "Clean Lambdas & Streams in Java 8 - A Hands-on Experience" at Voxxed Days Bucharest 2017. You'll find a link on www.victorrentea.ro
+
+
+- checking items in collections  :2'
+ * .filter(p).findAny().isPresent() / .collect(toList()).size() >= 1 / .count() >= 1 / .anyMatch()
+  
+- Optional vs NPE  :7'
+ * Customer.getProfile().getGoldCard().getDiscount();
+  
+- Stream Wrecks - break the long chains of Stream operations  :7'
+ * Performance.. Do you really need to stream HUGE amount of data too big for your RAM? 
+ * That is, are you using JDBC Cursors / Spring Data JPA methods returning Stream<Entity>?
+	
+- name your multi-line lambdas  :4'
+ * .map(this::mapToOtherObj)
+ * .map(OtherObj::new);
+ * .map(mapper::toOtherObj);
+
+- filter - Cherish your Predicates :5'
+ * Highly reusable: new boolean getters is Entities
+ * Use-case specific: new boolean functions in this::
+ * Just explain the code: intermediary Predicate variables
+ * Reusable parameterized predicates: static methods returning Predicate<Item>
+
+- type-specific functionality  :9'
+ * switch(type): simple++; always add default: throw new ...();
+ * Polimorphysm (OOP) - too HEAVY/overengineering-- ?. "Favor Composition over Inheritance"
+ * Map<Type, Function<params, rez>> (FP) - Yuck!
+ * Functions in Enums: concise syntax++, forces you to implement all needed functions++
+ 
+- Adapter Pattern by Composing Functions  :3'
+ * pre-process the arguments / post-process the return value
+ * .thenApply only when the sequence of steps are variable
+  
+- Proxy Pattern by Wrap-Around  :5'
+ * When you need to be in the call stack of another function
+ * Ex: measure the execution time of a method. 
+ * Ex: start/end transactions, etc..
+
+- Death of Template Methods by "Passing a Block" pattern  :8'
+ * Instead of f(param) calls g implemented in subclasses
+ * Give g as parameter to f -> f(param, g)
+ * f is stateful ++, No more extends ++
+  
+- forEach is NOT FP :6'
+ * effectively final - where do the local variables live in RAM?
+ * fix with some mutable accumulator (Holder)
+ * implies side effects: if short: OK. To loop over and accumulate some value -> NOT OK. (try .reduce)
+
+
+Github repo:
+https://github.com/victorrentea/devtalks-clean-lambdas.git
+ 
+Reach out to me: 
+www.victorrentea.ro
+victor.rentea@gmail.com
+@victorrentea
++40720019564
