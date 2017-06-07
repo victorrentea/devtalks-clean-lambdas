@@ -33,7 +33,7 @@ public class CherishYourPredicates {
 		@Getter @Setter private Customer customer;
 		@Getter @Setter private LocalDate deliveryDueDate;
 		@Getter private List<OrderLine> orderLines = new ArrayList<>();
-		@Getter private boolean confidential;
+		@Getter @Setter private boolean confidential;
 	}
 	
 	public static class OrderLine {
