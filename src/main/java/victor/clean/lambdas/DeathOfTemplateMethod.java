@@ -33,6 +33,7 @@ class EmailContext {
 
 @ToString
 class Email {
+	@Getter private long id = new Random(System.nanoTime()).nextLong();
 	@Getter @Setter private String sender;
 	@Getter @Setter private String subject;
 	@Getter @Setter private String body;

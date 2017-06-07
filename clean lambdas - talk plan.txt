@@ -5,18 +5,18 @@
  * Assumes you know the basics of Lambdas and Streams in Java8
 	- if you dont, check out the screencast from my workshop "Clean Lambdas & Streams in Java 8 - A Hands-on Experience" at Voxxed Days Bucharest 2017. You'll find a link on www.victorrentea.ro
 
-
 - checking items in collections  :2'
  * .filter(p).findAny().isPresent() / .collect(toList()).size() >= 1 / .count() >= 1 / .anyMatch()
+ * IDEA: Always refine/review your Java 8 code continuously to find the SIMPLEST form: KISS Principle
   
-- Optional vs NPE  :7'
- * Customer.getProfile().getGoldCard().getDiscount();
+- Optional vs NPE (2 STEP) :7'
+ * Customer.getProfile().getGoldCard().getDiscount(); --> Optional.map(getter).map(getter)...
   
 - Stream Wrecks - break the long chains of Stream operations  :7'
  * Performance.. Do you really need to stream HUGE amount of data too big for your RAM? 
  * That is, are you using JDBC Cursors / Spring Data JPA methods returning Stream<Entity>?
 	
-- name your multi-line lambdas  :4'
+- name your multi-line lambdas (3 STEP)  :4'
  * .map(this::mapToOtherObj)
  * .map(OtherObj::new);
  * .map(mapper::toOtherObj);
@@ -29,23 +29,23 @@
 
 - type-specific functionality  :9'
  * switch(type): simple++; always add default: throw new ...();
- * Polimorphysm (OOP) - too HEAVY/overengineering-- ?. "Favor Composition over Inheritance"
+ * Polimorphysm (OOP) - too HEAVY/overengineering-- ?. "Favor Composition over Inheritance". Extends is BAD.
  * Map<Type, Function<params, rez>> (FP) - Yuck!
  * Functions in Enums: concise syntax++, forces you to implement all needed functions++
  
 - Adapter Pattern by Composing Functions  :3'
- * pre-process the arguments / post-process the return value
  * .thenApply only when the sequence of steps are variable
+ * pre-process the arguments / post-process the return value
   
 - Proxy Pattern by Wrap-Around  :5'
  * When you need to be in the call stack of another function
  * Ex: measure the execution time of a method. 
- * Ex: start/end transactions, etc..
+ * Ex: start/end transactions, etc.. "Manual Aspect Oriented Programming" actually. :)
 
 - Death of Template Methods by "Passing a Block" pattern  :8'
  * Instead of f(param) calls g implemented in subclasses
  * Give g as parameter to f -> f(param, g)
- * f is stateful ++, No more extends ++
+ * No more extends ++. Better class names ++. Stateless/Singleton "helper" classes.
   
 - forEach is NOT FP :6'
  * effectively final - where do the local variables live in RAM?
