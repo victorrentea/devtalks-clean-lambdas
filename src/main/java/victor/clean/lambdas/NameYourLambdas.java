@@ -13,20 +13,21 @@ public class NameYourLambdas {
 	//@Autowired
 	private ARepo aRepo;
 	
+	//@Autowired
+	private ABMapper mapper;
+	
 	private List<B> getAllA() {
-		List<A> allA = aRepo.findAll();
-		return allA.stream()
-			.map(this::convertAToB)
-			.collect(toList());
+		return aRepo.findAll().stream().map(mapper::convertAToB).collect(toList());
 	}
 
-	private B convertAToB(A a) {
+}
+class ABMapper {
+	public B convertAToB(A a) {
 		B b = new B();
 		b.setFirstNameB(a.getFirstNameA());
 		b.setLastNameB(a.getLastNameA());
 		return b;
 	}
-	
 }
 
 // -------- fake code ---------
