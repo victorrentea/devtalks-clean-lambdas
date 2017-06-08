@@ -1,10 +1,16 @@
 package victor.clean.lambdas.higher;
 
+import java.util.function.Function;
+
 public class Compose {
 	
 	public static void main(String[] args) {
 		String s = "a <    B";
-		s = collapseSpaces(escapeHtml(s.toUpperCase())); // that's a lot simpler ! just do f(g(h(x)))
+		Function<String, String> normalize = String::toUpperCase;
+		normalize = normalize.andThen(Compose::escapeHtml);
+		normalize = normalize.andThen(Compose::collapseSpaces);
+		s = normalize.apply(s);
+//		s = collapseSpaces(escapeHtml(s.toUpperCase())); // that's a lot simpler ! just do f(g(h(x)))
 		System.out.println(s);
 	}
 
