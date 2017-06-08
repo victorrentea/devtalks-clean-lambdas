@@ -13,21 +13,10 @@ public class NameYourLambdas {
 	//@Autowired
 	private ARepo aRepo;
 	
-	//@Autowired
-	private ABMapper mapper;
-	
 	private List<B> getAllA() {
-		return aRepo.findAll().stream().map(mapper::convertAToB).collect(toList());
+		return aRepo.findAll().stream().map(B::new).collect(toList());
 	}
 
-}
-class ABMapper {
-	public B convertAToB(A a) {
-		B b = new B();
-		b.setFirstNameB(a.getFirstNameA());
-		b.setLastNameB(a.getLastNameA());
-		return b;
-	}
 }
 
 // -------- fake code ---------
@@ -40,6 +29,10 @@ class A {
 	@Getter @Setter private String lastNameA;
 }
 class B {
+	public B(A a) {
+		setFirstNameB(a.getFirstNameA());
+		setLastNameB(a.getLastNameA());
+	}
 	@Getter @Setter private String firstNameB;
 	@Getter @Setter private String lastNameB;
 }
