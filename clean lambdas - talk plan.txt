@@ -27,7 +27,7 @@
  * Just explain the code: intermediary Predicate variables
  * Reusable parameterized predicates: static methods returning Predicate<Item>
 
-- type-specific functionality  :9'
+- type-specific functionality (4 STEP) :9'
  * switch(type): simple++; always add default: throw new ...();
  * Polimorphysm (OOP) - too HEAVY/overengineering-- ?. "Favor Composition over Inheritance". Extends is BAD.
  * Map<Type, Function<params, rez>> (FP) - Yuck!
